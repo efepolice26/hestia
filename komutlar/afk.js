@@ -1,0 +1,34 @@
+const Discord = require('discord.js');
+const db = require("quick.db");
+
+exports.run = (client, message, args) => {
+      
+      let sebep = args.slice(0).join(" ");
+      if (!sebep) return message.reply("AFK olma nedenini yazmalısın!");
+
+      db.set(`afks_${message.author.id}`, sebep)
+  
+          const afk = new Discord.RichEmbed()
+      .setColor('RANDOM')
+      .setTitle('AFK')
+      .setDescription(`${message.author.username} - Adlı Kullanıcı **${sebep}** Yüzünden Afk Oldu! <a:ayarlar:609133897942433934> `) 
+      .setFooter('  ElektroBOT AFK Sistem', client.user.avatarURL)
+      .setTimestamp()
+      message.channel.send(afk);
+  
+};
+
+exports.conf = {
+  enabled: true,
+  guildOnly: false,
+  aliases: [],
+  permLevel: 0
+};
+
+exports.help = {
+  name: 'afk',
+  description: 'AFK olursunuz. (Birisi sizi etiketlediğinde AFK olduğunuzu söyler.)',
+  usage: 'afk <sebep>'
+};
+
+// AFK KOMUTU :) VEREN RN | RULETTE#9161
